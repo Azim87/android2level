@@ -8,4 +8,11 @@
     <string name="action_settings">Settings</string>
     <string name="title">title</string>
     <string name="titles">title</string>
+    <string name="description">description</string>
+    <string name="importance">Сверх срочно</string>
+    <string name="inportance2">Очень срочно</string>
+    <string name="importance3">Срочно</string>
+    <string name="save">Save</string>
+    <string name="title_activity_on_board_activty">OnBoardActivty</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

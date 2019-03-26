@@ -4,4 +4,9 @@
     <color name="textViewColor">#3E3E42</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorOne">#D57196</color>
+    <color name="colorTwo">#7576E0</color>
+    <color name="colorThree">#A4F161</color>
+    <color name="image_item_selected_for_dots">#262726</color>
+    <color name="image_item_unselected_for_dots">#FCFDFB</color>
 </resources>

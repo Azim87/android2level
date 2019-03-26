@@ -1,9 +1,11 @@
 package com.kubatov.todo.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -73,6 +75,24 @@ public class MainActivity extends AppCompatActivity
                 intent.putExtra("task", list.get(pos));
                 startActivityForResult(intent, 101);
             }
+
+            @Override
+            public void deleteOnClick(final int pos) {                                                     //delete tasks
+                Task task = list.get(pos);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Do you want to delete: " + task.getTitle() )
+                        .setMessage("Are you sure?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                list.remove(pos);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }).setNegativeButton("No", null)
+                        .setCancelable(false);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
         });
     }
 
@@ -80,6 +100,7 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
        if (resultCode == RESULT_OK ){
+           assert data != null;
            Task task = (Task) data.getSerializableExtra("task");
            switch (requestCode){
                case 100:
@@ -94,13 +115,20 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+    public void onBackPressed() {                                                               //onBackPressed
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Do you want to exit?")
+                .setMessage("Are you sure?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MainActivity.super.onBackPressed();
+                    }
+                }).setNegativeButton("No", null)
+                .setCancelable(false);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override

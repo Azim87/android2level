@@ -1,34 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="10dp"
-    android:paddingBottom="5dp"
-    android:paddingTop="50dp">
+    android:padding="16dp"
+    android:paddingTop="40dp"
+    android:orientation="horizontal">
 
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="title"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/text_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_title"
+            android:text="@string/description"
+            android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/text_title"
-        android:layout_width="match_parent"
+        android:id="@+id/textStatus"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="title"
-        android:textColor="@color/textViewColor"
-        android:textFontWeight="bold"
-        android:textSize="25sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="50dp" />
+        android:layout_marginLeft="237dp"
+        android:layout_toRightOf="@id/text_description"
+        android:layout_weight="1"
+        android:hint="Статус" />
 
-    <TextView
-        android:id="@+id/text_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="description"
-        android:textColor="@color/textViewColor"
-        android:textSize="15sp"
-        app:layout_constraintTop_toBottomOf="@+id/text_title"
-        tools:layout_editor_absoluteX="50dp" />
-</android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

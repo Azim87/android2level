@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Task implements Serializable {
     String title;
     String description;
+    int status;
 
     public Task() {
 
@@ -25,4 +26,14 @@ public class Task implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+
 }

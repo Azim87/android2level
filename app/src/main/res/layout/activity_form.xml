@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".Activities.FormActivity">
+    tools:context=".FormActivity">
 
     <EditText
         android:id="@+id/editTitle"
-        android:hint="@string/title"
+        android:hint="Название"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -17,15 +17,40 @@
 
     <EditText
         android:id="@+id/editDescription"
-        android:hint="description"
+        android:hint="Описание"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radio_button1"
+            android:text="@string/importance3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:id="@+id/radio_button2"
+            android:text="@string/inportance2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:id="@+id/radio_button3"
+            android:text="@string/importance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </RadioGroup>
+
     <Button
-        android:text="Save"
+        android:text="Сохранить"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:onClick="onClick"
