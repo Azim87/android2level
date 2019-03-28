@@ -1,6 +1,7 @@
 package com.kubatov.todo.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.Image;
 import android.support.annotation.NonNull;
@@ -31,11 +32,13 @@ import android.widget.TextView;
 
 import com.kubatov.todo.R;
 
+import static com.kubatov.todo.R.drawable.gradient_color;
+
 public class OnBoardActivty extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     public ViewPager mViewPager;
-    private int dotsCount = 3;
+    private int dotsCount = 0;
     private ImageView[] dots;
     LinearLayout linearLayout;
 
@@ -62,7 +65,7 @@ public class OnBoardActivty extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                switch (position){
+                switch (position) {
                     case 0:
 
                         dots[0].setImageDrawable(getResources().getDrawable(R.drawable.item_unselected));
@@ -126,7 +129,6 @@ public class OnBoardActivty extends AppCompatActivity {
         }
     }
 
-
     public static class PlaceholderFragment extends Fragment {
         private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -147,7 +149,8 @@ public class OnBoardActivty extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_on_board_activty, container, false);
 
             int number = getArguments().getInt(ARG_SECTION_NUMBER);
-            TextView textView = rootView.findViewById(R.id.textTitle);
+            TextView textTitle = rootView.findViewById(R.id.textTitle);
+            TextView textDescription = rootView.findViewById(R.id.textDescription);
             ImageView imageView = rootView.findViewById(R.id.image_view);
             Button button = rootView.findViewById(R.id.buttonClick);
             ImageButton buttonBack = rootView.findViewById(R.id.buttonBack);
@@ -159,38 +162,42 @@ public class OnBoardActivty extends AppCompatActivity {
                     buttonNext.setVisibility(View.VISIBLE);
                     button.setVisibility(View.GONE);
                     imageView.setImageResource(R.drawable.anchor);
-                    textView.setText("Hello");
-                    rootView.setBackgroundColor(Color.GREEN);
+                    textTitle.setText("Add Task Title");
+                    textDescription.setText("Type any task title");
                     break;
-
                 case 1:
                     buttonBack.setVisibility(View.VISIBLE);
                     buttonNext.setVisibility(View.VISIBLE);
                     button.setVisibility(View.GONE);
                     imageView.setImageResource(R.drawable.caesar);
-                    textView.setText("How are you?");
-                    rootView.setBackgroundColor(Color.LTGRAY);
+                    textTitle.setText("Add Task Description");
+                    textDescription.setText("Type any task description");
                     break;
-
                 case 2:
                     buttonNext.setVisibility(View.GONE);
                     buttonBack.setVisibility(View.VISIBLE);
                     button.setVisibility(View.VISIBLE);
                     imageView.setImageResource(R.drawable.anglerfish);
-                    textView.setText("Bye");
-                    rootView.setBackgroundColor(Color.YELLOW);
+                    textTitle.setText("Add Task Priority");
+                    textDescription.setText("Type any task priority");
                     break;
             }
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    saveState();
                     startActivity(new Intent(getContext(), MainActivity.class));
                     getActivity().finish();
                 }
             });
             return rootView;
 
+        }
+
+        private void saveState() {
+            SharedPreferences preferences = getContext().getSharedPreferences("settings", MODE_PRIVATE);
+            preferences.edit().putBoolean("shown", true).apply();
         }
 
 

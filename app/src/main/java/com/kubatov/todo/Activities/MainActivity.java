@@ -2,6 +2,7 @@ package com.kubatov.todo.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -37,6 +38,15 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SharedPreferences preferences = getSharedPreferences("settings", MODE_PRIVATE);
+
+        boolean shown = preferences.getBoolean("shown", false);
+
+        if (!shown){
+            startActivity(new Intent(this, OnBoardActivty.class));
+            finish();
+        }
+
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -147,6 +157,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(MainActivity.this, Customize.class));
             return true;
         }
 
@@ -156,20 +167,21 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Task task =null;
+        switch (id) {
+            case R.id.nav_all:
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+                break;
+            case R.id.nav_srochno:
 
-        } else if (id == R.id.nav_slideshow) {
+                break;
+            case R.id.nav_ochen_srochno:
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+                break;
+            case R.id.nav_sverh_srochno:
+                
+                break;
 
         }
 

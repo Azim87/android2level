@@ -20,12 +20,8 @@ public class FormActivity extends AppCompatActivity {
     EditText editDescription;
     TextView textView;
 
-
     RadioGroup radioGroup;
-
     int status;
-
-
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -41,12 +37,25 @@ public class FormActivity extends AppCompatActivity {
         Task task = (Task) getIntent().getSerializableExtra("task");
         if (task != null) {
             editTitle.setText(task.getTitle());
+
+            switch (task.getStatus()) {
+                case 0:
+                    radioGroup.check(R.id.radio_button1);
+                    break;
+                case 1:
+                    radioGroup.check(R.id.radio_button2);
+                    break;
+                case 2:
+                    radioGroup.check(R.id.radio_button3);
+                    break;
+
+            }
             editDescription.setText(task.getDescription());
         }
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.radio_button1:
                         status = 0;
                         break;

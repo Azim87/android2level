@@ -38,7 +38,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>  {
         switch (task.getStatus()){
             case 0:
                 viewHolder.textStatus.setText("срочное");
-                viewHolder.textStatus.setTextColor(Color.BLACK);
+                viewHolder.textStatus.setTextColor(Color.YELLOW);
                 break;
             case 1:
                 viewHolder.textStatus.setText("очень срочное");
@@ -46,13 +46,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>  {
                 break;
             case 2:
                 viewHolder.textStatus.setText("сверх срочное");
-                viewHolder.textStatus.setTextColor(Color.GREEN);
+                viewHolder.textStatus.setTextColor(Color.RED);
                 break;
-
         }
+
+
+
     }
-
-
 
     @Override
     public int getItemCount() {

@@ -33,7 +33,8 @@
             android:id="@+id/radio_button1"
             android:text="@string/importance3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:checked="true"/>
 
         <RadioButton
             android:id="@+id/radio_button2"

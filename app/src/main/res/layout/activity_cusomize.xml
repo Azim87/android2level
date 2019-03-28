@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Customize">
+
+    <TextView
+        android:id="@+id/color_name"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="Выберите цвет который вам нравиться"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RadioGroup
+        android:id="@+id/radio_group_color"
+        android:paddingLeft="50dp"
+        android:layout_below="@+id/color_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/text_color_1"
+            android:text="Красный"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:id="@+id/text_color_2"
+            android:text="Голубой"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:id="@+id/text_color_3"
+            android:text="Зеленный"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/font_size"
+        android:gravity="center"
+        android:layout_below="@+id/radio_group_color"
+        android:layout_marginTop="50dp"
+        android:text="Выберите размер шрифта который вам нравиться"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RadioGroup
+
+        android:id="@+id/radio_group_text_size"
+        android:paddingLeft="50dp"
+        android:layout_below="@+id/font_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/font_size_1"
+            android:text="10px"
+            android:textSize="10sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:id="@+id/font_size_2"
+            android:text="15px"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:id="@+id/font_size_3"
+            android:text="20px"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radio_group_text_size"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="30dp"
+        android:onClick="onSave"
+        android:text="Сохранить" />
+
+</RelativeLayout>
