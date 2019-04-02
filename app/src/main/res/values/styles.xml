@@ -12,6 +12,12 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="ButtonTheme" parent="Widget.AppCompat.ActionButton">
+        <item name="android:background">@drawable/button_shape</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">#fff</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

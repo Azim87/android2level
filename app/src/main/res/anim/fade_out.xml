@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<alpha xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="ExtraText">
+    android:duration="500"
+    android:fromAlpha="1.0"
+    android:toYAlpha="1.0"
+
+</alpha>

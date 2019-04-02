@@ -61,22 +61,22 @@
 
         <RadioButton
             android:id="@+id/font_size_1"
-            android:text="10px"
-            android:textSize="10sp"
+            android:text="16px"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <RadioButton
             android:id="@+id/font_size_2"
-            android:text="15px"
-            android:textSize="15sp"
+            android:text="20px"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <RadioButton
             android:id="@+id/font_size_3"
-            android:text="20px"
-            android:textSize="20sp"
+            android:text="25px"
+            android:textSize="25sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RadioGroup>

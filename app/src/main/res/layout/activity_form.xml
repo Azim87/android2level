@@ -9,20 +9,23 @@
     <EditText
         android:id="@+id/editTitle"
         android:hint="Название"
+        android:background="@drawable/edit_text_shape"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="35dp" />
 
     <EditText
         android:id="@+id/editDescription"
         android:hint="Описание"
+        android:background="@drawable/edit_text_shape"
+        android:paddingRight="30dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="35dp" />
 
     <RadioGroup
         android:id="@+id/radio_group"
@@ -51,11 +54,12 @@
     </RadioGroup>
 
     <Button
+        style="@style/ButtonTheme"
         android:text="Сохранить"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:onClick="onClick"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

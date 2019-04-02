@@ -1,6 +1,9 @@
 package com.kubatov.todo;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,14 +15,20 @@ import com.kubatov.todo.Interface.ClickListener;
 
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>  {
 
 
     List<Task> list;
     private ClickListener listener;
+    int color;
+    Context context;
 
-    public TaskAdapter(List<Task> list) {
+    public TaskAdapter(List<Task> list, Context context) {
         this.list = list;
+        this.context = context;
+
     }
 
     @NonNull
@@ -29,29 +38,41 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>  {
         return new ViewHolder(view);
     }
 
+
+
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Task task = list.get(i);
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+
+        Task task = list.get(position);
         viewHolder.textTitle.setText(task.getTitle());
         viewHolder.textDescription.setText(task.getDescription());
+        viewHolder.textStatus.setTextColor(color);
+
+        SharedPreferences preferences = context.getSharedPreferences("color", MODE_PRIVATE);
+        int color = preferences.getInt("color", 0);
+        int font = preferences.getInt("font", 1);
+
+
 
         switch (task.getStatus()){
             case 0:
                 viewHolder.textStatus.setText("срочное");
-                viewHolder.textStatus.setTextColor(Color.YELLOW);
+                viewHolder.textStatus.setTextColor(color);
+                viewHolder.textStatus.setTextSize(font);
+
                 break;
             case 1:
                 viewHolder.textStatus.setText("очень срочное");
-                viewHolder.textStatus.setTextColor(Color.BLUE);
+                viewHolder.textStatus.setTextColor(color);
+                viewHolder.textStatus.setTextSize(font);
                 break;
             case 2:
                 viewHolder.textStatus.setText("сверх срочное");
-                viewHolder.textStatus.setTextColor(Color.RED);
+                viewHolder.textStatus.setTextColor(color);
+                viewHolder.textStatus.setTextSize(font);
                 break;
+
         }
-
-
-
     }
 
     @Override
@@ -68,12 +89,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>  {
         TextView textTitle;
         TextView textDescription;
         TextView textStatus;
+        TextView textTime;
+
 
          public ViewHolder(@NonNull View itemView) {
              super(itemView);
              textTitle = itemView.findViewById(R.id.text_title);
              textDescription = itemView.findViewById(R.id.text_description);
              textStatus = itemView.findViewById(R.id.textStatus);
+             textTime = itemView.findViewById(R.id.text_view_time);
+
+
 
              itemView.setOnClickListener(new View.OnClickListener() {
                  @Override

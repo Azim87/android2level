@@ -1,5 +1,6 @@
 package com.kubatov.todo.Activities;
 
+import android.arch.lifecycle.Observer;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -55,7 +57,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, FormActivity.class);
-                startActivityForResult(intent, 100);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
@@ -68,13 +71,14 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         initList();
+        loadTasks();
     }
 
     private void initList(){
         list = new ArrayList<>();
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new TaskAdapter(list);
+        adapter = new TaskAdapter( list, this);
         recyclerView.setAdapter(adapter);
 
         adapter.setListener(new ClickListener() {
@@ -83,20 +87,19 @@ public class MainActivity extends AppCompatActivity
                 position=pos;
                 Intent intent = new Intent(MainActivity.this, FormActivity.class);
                 intent.putExtra("task", list.get(pos));
-                startActivityForResult(intent, 101);
+                startActivity(intent);
             }
 
             @Override
             public void deleteOnClick(final int pos) {                                                     //delete tasks
                 Task task = list.get(pos);
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Do you want to delete: " + task.getTitle() )
+                builder.setTitle("Do you want to delete: " + task.getTitle() + "?")
                         .setMessage("Are you sure?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                list.remove(pos);
-                                adapter.notifyDataSetChanged();
+                                App.getInstance().getDataBase().taskDAO().delete(list.remove(pos));
                             }
                         }).setNegativeButton("No", null)
                         .setCancelable(false);
@@ -106,29 +109,23 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    private void loadTasks(){
+        App.getInstance().getDataBase().taskDAO().getAll().observe(this, new Observer<List<Task>>() {
+            @Override
+            public void onChanged(@Nullable List<Task> tasks) {
+                list.clear();
+                list.addAll(tasks);
+                adapter.notifyDataSetChanged();
+            }
+        });
 
-       if (resultCode == RESULT_OK ){
-           assert data != null;
-           Task task = (Task) data.getSerializableExtra("task");
-           switch (requestCode){
-               case 100:
-                   list.add(0,task);
-                   break;
-               case 101:
-                    list.set(position, task);
-                   break;
-           }
-       }
-       adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onBackPressed() {                                                               //onBackPressed
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Do you want to exit?")
-                .setMessage("Are you sure?")
+        builder.setTitle("Хочешь выйти?")
+                .setMessage("Может останешься еще чуть чуть ?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -147,7 +144,7 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
+    private boolean sort;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -157,7 +154,35 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
             startActivity(new Intent(MainActivity.this, Customize.class));
+            return true;
+        }
+
+
+        if (id == R.id.action_sort){
+            Log.d("ololo", "kdskjfldsf");
+            if (sort){
+                App.getInstance().getDataBase().taskDAO().sortByIdAsc().observe(this, new Observer<List<Task>>() {
+                    @Override
+                    public void onChanged(@Nullable List<Task> tasks) {
+                        list.clear();
+                        list.addAll(tasks);
+                        sort = false;
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }else {
+                App.getInstance().getDataBase().taskDAO().sortByIdDesc().observe(this, new Observer<List<Task>>() {
+                    @Override
+                    public void onChanged(@Nullable List<Task> tasks) {
+                        list.clear();
+                        list.addAll(tasks);
+                        sort = true  ;
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
             return true;
         }
 
@@ -168,7 +193,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        Task task =null;
         switch (id) {
             case R.id.nav_all:
 
@@ -180,7 +204,11 @@ public class MainActivity extends AppCompatActivity
 
                 break;
             case R.id.nav_sverh_srochno:
-                
+
+                break;
+
+            case R.id.users:
+                startActivity(new Intent(MainActivity.this, UserActivity.class));
                 break;
 
         }

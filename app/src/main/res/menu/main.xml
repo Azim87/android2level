@@ -3,7 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="2"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_sort"
+        android:title="A-Z"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_sort_by_alpha_black_24dp"
+
+        />
+    <item
+        android:id="@+id/action_sort_asc"
+        android:title="Del"
+        app:showAsAction="always"
+
+        />
+
 </menu>

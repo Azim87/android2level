@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.kubatov.todo.R;
 import com.kubatov.todo.Task;
 
+import java.util.Date;
+
 public class FormActivity extends AppCompatActivity {
 
     EditText editTitle;
@@ -22,6 +24,7 @@ public class FormActivity extends AppCompatActivity {
 
     RadioGroup radioGroup;
     int status;
+    Task task;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -34,7 +37,7 @@ public class FormActivity extends AppCompatActivity {
 
         radioGroup = findViewById(R.id.radio_group);
 
-        Task task = (Task) getIntent().getSerializableExtra("task");
+        task = (Task) getIntent().getSerializableExtra("task");
         if (task != null) {
             editTitle.setText(task.getTitle());
 
@@ -75,16 +78,25 @@ public class FormActivity extends AppCompatActivity {
     public void onClick(View view) {
         String title = editTitle.getText().toString().trim();
         String description = editDescription.getText().toString().trim();
-        Task task = new Task();
-        task.setTitle(title);
-        task.setDescription(description);
-        task.setStatus(status);
-        Intent intent = new Intent();
-        intent.putExtra("task", task);
-        setResult(RESULT_OK, intent);
+        if (task !=null){
+            task.setTitle(title);
+            task.setDescription(description);
+            task.setStatus(status);
+            App.getInstance().getDataBase().taskDAO().update(task);
+
+        }else {
+            Task task = new Task();
+            task.setTitle(title);
+            task.setDescription(description);
+            task.setStatus(status);
+            task.setTime(System.currentTimeMillis());
+            App.getInstance().getDataBase().taskDAO().insert(task);
+            Intent intent = new Intent();
+            onActivityResult(100,1, intent);
+        }
+
         finish();
 
     }
-
 
 }

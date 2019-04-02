@@ -4,6 +4,7 @@
     package="com.kubatov.todo">
 
     <application
+        android:name=".Activities.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,11 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.Customize"></activity>
+        <activity android:name=".Activities.UserActivity"></activity>
+        <activity android:name=".Activities.Customize" />
         <activity
             android:name=".Activities.OnBoardActivty"
             android:label="@string/title_activity_on_board_activty"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.FormActivity" />
         <activity
             android:name=".Activities.MainActivity"

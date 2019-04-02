@@ -6,20 +6,22 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_all"
-            android:icon="@drawable/ic_all_inclusive_black_24dp"
             android:title="Все" />
         <item
             android:id="@+id/nav_srochno"
-            android:icon="@drawable/ic_menu_gallery"
             android:title="Срочно" />
         <item
             android:id="@+id/nav_ochen_srochno"
-            android:icon="@drawable/ic_menu_slideshow"
             android:title="Очень срочно" />
         <item
             android:id="@+id/nav_sverh_srochno"
-            android:icon="@drawable/ic_menu_manage"
             android:title="Сверх срочно" />
+
+        <item
+            android:id="@+id/users"
+            android:title="Users" />
+
+
     </group>
 
     <item android:title="Communicate">

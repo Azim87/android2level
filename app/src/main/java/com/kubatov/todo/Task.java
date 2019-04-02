@@ -1,12 +1,20 @@
 package com.kubatov.todo;
 
-import java.io.Serializable;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+import java.util.Date;
+
+@Entity
 public class Task implements Serializable {
+    @PrimaryKey(autoGenerate = true)
+    long id;
     String title;
     String description;
     int status;
 
+    public long time;
     public Task() {
 
     }
@@ -35,5 +43,20 @@ public class Task implements Serializable {
         this.status = status;
     }
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
 }
