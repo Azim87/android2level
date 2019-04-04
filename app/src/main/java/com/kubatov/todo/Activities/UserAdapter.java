@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.kubatov.todo.Interface.ClickListener;
 import com.kubatov.todo.R;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolderUser>{
 
     private List<User> userList;
+    private ClickListener listener;
 
     public UserAdapter(List<User> list) {
         userList = list;
@@ -31,14 +33,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolderUser
     @Override
     public void onBindViewHolder(@NonNull ViewHolderUser viewHolderUser, int i) {
 
-        //User user = userList.get(i);
-        viewHolderUser.onBind(userList.get(i));
-
+        User user = userList.get(i);
+        viewHolderUser.textName.setText(user.getName());
+        viewHolderUser.textAge.setText(String.valueOf(user.getAge()));
     }
 
     @Override
     public int getItemCount() {
         return userList.size();
+    }
+    public void setListener(ClickListener listener){
+        this.listener = listener;
     }
 
     public class ViewHolderUser extends RecyclerView.ViewHolder {
@@ -50,11 +55,23 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolderUser
         textName = itemView.findViewById(R.id.text_name);
         textAge = itemView.findViewById(R.id.text_age);
 
-    }
 
-        public void onBind(User user){
-            textName.setText(user.name);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClicks(getAdapterPosition());
+
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    listener.deleteOnClick(getAdapterPosition());
+                    return true;
+                }
+            });
+
         }
-
     }
 }

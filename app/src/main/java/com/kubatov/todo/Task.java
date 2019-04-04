@@ -13,8 +13,16 @@ public class Task implements Serializable {
     String title;
     String description;
     int status;
+    long creationDate;
 
-    public long time;
+    public long getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(long creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public Task() {
 
     }
@@ -51,12 +59,4 @@ public class Task implements Serializable {
         this.id = id;
     }
 
-
-    public long getTime() {
-        return time;
-    }
-
-    public void setTime(long time) {
-        this.time = time;
-    }
 }

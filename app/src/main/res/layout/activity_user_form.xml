@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".Activities.UserFormActivity">
+
+    <android.support.design.widget.TextInputLayout
+    android:id="@+id/name_input"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:counterEnabled="true"
+    app:counterMaxLength="15"
+    app:errorEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/name_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/user_form_shape"
+            android:hint="name"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="10dp" />
+
+</android.support.design.widget.TextInputLayout>
+
+
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/age_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterMaxLength="2"
+        app:counterEnabled="true"
+        app:errorEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/age_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/user_form_shape"
+            android:hint="age"
+            android:inputType="numberDecimal"
+            android:paddingLeft="10dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="10dp" />
+    </android.support.design.widget.TextInputLayout>
+
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/user_add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        app:srcCompat="@drawable/ic_add" />
+
+
+</LinearLayout>

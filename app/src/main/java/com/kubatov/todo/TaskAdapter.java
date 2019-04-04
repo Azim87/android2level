@@ -1,10 +1,13 @@
 package com.kubatov.todo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +16,26 @@ import android.widget.TextView;
 
 import com.kubatov.todo.Interface.ClickListener;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
+import static javax.net.ssl.SSLEngineResult.Status.OK;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>  {
-
 
     List<Task> list;
     private ClickListener listener;
     int color;
     Context context;
+    TaskAdapter adapter;
 
     public TaskAdapter(List<Task> list, Context context) {
         this.list = list;
@@ -38,8 +50,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>  {
         return new ViewHolder(view);
     }
 
-
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
@@ -48,31 +58,35 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>  {
         viewHolder.textDescription.setText(task.getDescription());
         viewHolder.textStatus.setTextColor(color);
 
-        SharedPreferences preferences = context.getSharedPreferences("color", MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences("custom", MODE_PRIVATE);
         int color = preferences.getInt("color", 0);
         int font = preferences.getInt("font", 1);
+        long time = preferences.getLong("time", System.currentTimeMillis());
 
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm:ss Z");
+        Date resultdate = new Date(time);
 
+        viewHolder.textTime.setText(sdf.format(resultdate));
 
         switch (task.getStatus()){
-            case 0:
-                viewHolder.textStatus.setText("срочное");
-                viewHolder.textStatus.setTextColor(color);
-                viewHolder.textStatus.setTextSize(font);
+                case 0:
+                    viewHolder.textStatus.setText("срочное");
+                    viewHolder.textStatus.setTextColor(color);
+                    viewHolder.textStatus.setTextSize(font);
 
-                break;
-            case 1:
-                viewHolder.textStatus.setText("очень срочное");
-                viewHolder.textStatus.setTextColor(color);
-                viewHolder.textStatus.setTextSize(font);
-                break;
-            case 2:
-                viewHolder.textStatus.setText("сверх срочное");
-                viewHolder.textStatus.setTextColor(color);
-                viewHolder.textStatus.setTextSize(font);
-                break;
-
+                    break;
+                case 1:
+                    viewHolder.textStatus.setText("очень срочное");
+                    viewHolder.textStatus.setTextColor(color);
+                    viewHolder.textStatus.setTextSize(font);
+                    break;
+                case 2:
+                    viewHolder.textStatus.setText("сверх срочное");
+                    viewHolder.textStatus.setTextColor(color);
+                    viewHolder.textStatus.setTextSize(font);
+                    break;
         }
+
     }
 
     @Override

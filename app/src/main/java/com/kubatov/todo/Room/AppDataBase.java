@@ -6,7 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 import com.kubatov.todo.Activities.User;
 import com.kubatov.todo.Task;
 
-@Database(entities = {Task.class, User.class}, version = 3)
+@Database(entities = {Task.class, User.class}, version = 1)
 public abstract class AppDataBase extends RoomDatabase {
     public abstract TaskDAO taskDAO();
     public abstract UserDAO userDAO();

@@ -15,6 +15,7 @@ import static android.icu.text.MessagePattern.ArgType.SELECT;
 
 @Dao
 public interface TaskDAO {
+
     @Query("SELECT*FROM task")
     LiveData<List<Task>>getAll();
 
@@ -23,8 +24,6 @@ public interface TaskDAO {
 
     @Query("SELECT * FROM task ORDER BY TITLE ASC")
     LiveData<List<Task>> sortByIdAsc();
-
-
 
     @Insert
     void insert(Task task);

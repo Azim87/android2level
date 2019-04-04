@@ -1,6 +1,7 @@
 package com.kubatov.todo.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,12 +9,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kubatov.todo.R;
 import com.kubatov.todo.Task;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class FormActivity extends AppCompatActivity {
@@ -23,6 +28,7 @@ public class FormActivity extends AppCompatActivity {
     TextView textView;
 
     RadioGroup radioGroup;
+    long time;
     int status;
     Task task;
 
@@ -40,6 +46,7 @@ public class FormActivity extends AppCompatActivity {
         task = (Task) getIntent().getSerializableExtra("task");
         if (task != null) {
             editTitle.setText(task.getTitle());
+
 
             switch (task.getStatus()) {
                 case 0:
@@ -89,12 +96,15 @@ public class FormActivity extends AppCompatActivity {
             task.setTitle(title);
             task.setDescription(description);
             task.setStatus(status);
-            task.setTime(System.currentTimeMillis());
+
+            SharedPreferences preferences = getSharedPreferences("time", MODE_PRIVATE);
+            preferences.edit().putLong("time", time).apply();
+            long time = System.currentTimeMillis();
+            task.setCreationDate(time);
             App.getInstance().getDataBase().taskDAO().insert(task);
             Intent intent = new Intent();
-            onActivityResult(100,1, intent);
+            setResult(RESULT_OK, intent);
         }
-
         finish();
 
     }

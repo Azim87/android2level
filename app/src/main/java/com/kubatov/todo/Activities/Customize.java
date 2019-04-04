@@ -65,15 +65,17 @@ public class Customize extends AppCompatActivity {
     }
 
     private void saveSetting() {
-        SharedPreferences preferences = getSharedPreferences("color", MODE_PRIVATE);
+
+    }
+
+    public void onSave(View view) {
+
+        SharedPreferences preferences = getSharedPreferences("custom", MODE_PRIVATE);
         preferences.edit()
                 .putInt("color", color)
                 .putInt("font", font )
                 .apply();
-    }
 
-    public void onSave(View view) {
-        saveSetting();
         Task task = new Task();
         task.setStatus(color);
         task.setStatus(font);

@@ -3,8 +3,10 @@ package com.kubatov.todo.Activities;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class User {
+public class User implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     public long id;
@@ -12,9 +14,8 @@ public class User {
     int age;
 
 
-    public User(String name, int age) {
-        this.name = name;
-        this.age = age;
+    public User() {
+
     }
 
     public String getName() {

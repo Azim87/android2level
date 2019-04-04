@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.UserActivity"></activity>
+        <activity android:name=".Activities.UserFormActivity"></activity>
+        <activity android:name=".Activities.UserActivity" />
         <activity android:name=".Activities.Customize" />
         <activity
             android:name=".Activities.OnBoardActivty"

@@ -18,6 +18,18 @@ public interface UserDAO {
     @Query("SELECT * FROM user")
     LiveData<List<User>> getAll();
 
+    @Query("SELECT * FROM user ORDER BY NAME DESC")
+    LiveData<List<User>> getNameSortDESC();
+
+    @Query("SELECT * FROM user ORDER BY NAME ASC")
+    LiveData<List<User>> getNameSortASC();
+
+    @Query("SELECT * FROM user ORDER BY AGE DESC")
+    LiveData<List<User>> getAgeSortDESC();
+
+    @Query("SELECT * FROM user ORDER BY AGE ASC")
+    LiveData<List<User>> getAgeSortASC();
+
     @Insert
     void insert(User user);
 
