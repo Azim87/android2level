@@ -24,7 +24,6 @@ public class UserFormActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_form);
-
         textInputName = findViewById(R.id.name_input);
         textInputAge= findViewById(R.id.age_input);
         circleButton = findViewById(R.id.user_add_button);
@@ -34,6 +33,7 @@ public class UserFormActivity extends AppCompatActivity {
             textInputName.getEditText().setText(user.getName());
             textInputAge.getEditText().setText(String.valueOf(user.getAge()));
         }
+
 
 
     }
@@ -60,30 +60,6 @@ public class UserFormActivity extends AppCompatActivity {
     }
 
     private boolean validateAge(){
-        Toast.makeText(UserFormActivity.this, "press on more time to add", Toast.LENGTH_SHORT).show();
-        circleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = textInputName.getEditText().getText().toString().trim();
-                int age = Integer.parseInt(textInputAge.getEditText().getText().toString().trim());
-                if (user != null) {
-                    user.setName(name);
-                    user.setAge(age);
-                    App.getInstance().getDataBase().userDAO().update(user);
-
-                } else {
-                    User users = new User();
-                    user.setName(name);
-                    user.setAge(age);
-                    Intent intent = new Intent();
-                    setResult(RESULT_OK, intent);
-                    App.getInstance().getDataBase().userDAO().insert(users);
-
-                }
-                finish();
-            }
-        });
-
 
         String ageInput = textInputAge
                 .getEditText()
@@ -102,6 +78,30 @@ public class UserFormActivity extends AppCompatActivity {
     }
 
     public void confirmInput(View view){
+
+        Toast.makeText(UserFormActivity.this, "press on more time to add", Toast.LENGTH_SHORT).show();
+        circleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = textInputName.getEditText().getText().toString().trim();
+                int age = Integer.parseInt(textInputAge.getEditText().getText().toString().trim());
+
+                if (user != null) {
+                    user.setName(name);
+                    user.setAge(age);
+                    App.getInstance().getDataBase().userDAO().update(user);
+
+                } else {
+                    User users = new User();
+                    users.setName(name);
+                    users.setAge(age);
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    App.getInstance().getDataBase().userDAO().insert(users);
+                }
+                finish();
+            }
+        });
 
         if (!validateName() | !validateAge()){
             return;
