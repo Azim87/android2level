@@ -17,7 +17,6 @@ public class UserFormActivity extends AppCompatActivity {
 
     TextInputLayout textInputName;
     TextInputLayout textInputAge;
-    FloatingActionButton circleButton;
     private User user;
 
     @Override
@@ -25,41 +24,38 @@ public class UserFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_form);
         textInputName = findViewById(R.id.name_input);
-        textInputAge= findViewById(R.id.age_input);
-        circleButton = findViewById(R.id.user_add_button);
+        textInputAge = findViewById(R.id.age_input);
 
         user = (User) getIntent().getSerializableExtra("user");
-        if (user != null){
+        if (user != null) {
             textInputName.getEditText().setText(user.getName());
             textInputAge.getEditText().setText(String.valueOf(user.getAge()));
         }
 
-
-
     }
 
-    private boolean validateName(){
+    private boolean validateName() {
         String nameInput = textInputName
                 .getEditText()
                 .getText()
                 .toString()
                 .trim();
 
-        if (nameInput.isEmpty()){
+        if (nameInput.isEmpty()) {
             textInputName.setError("This field can`t be empty!");
             return false;
 
-        }else if (nameInput.length() >15 ){
+        } else if (nameInput.length() > 15) {
             textInputName.setError("Name to long!");
             return false;
 
-        }else {
+        } else {
             textInputName.setError(null);
             return true;
         }
     }
 
-    private boolean validateAge(){
+    private boolean validateAge() {
 
         String ageInput = textInputAge
                 .getEditText()
@@ -67,51 +63,45 @@ public class UserFormActivity extends AppCompatActivity {
                 .toString()
                 .trim();
 
-        if (ageInput.isEmpty()){
+        if (ageInput.isEmpty()) {
             textInputAge.setError("This field can`t be empty!");
             return false;
 
-        }else {
+        } else {
             textInputAge.setError(null);
             return true;
         }
     }
 
-    public void confirmInput(View view){
 
-        Toast.makeText(UserFormActivity.this, "press on more time to add", Toast.LENGTH_SHORT).show();
-        circleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = textInputName.getEditText().getText().toString().trim();
-                int age = Integer.parseInt(textInputAge.getEditText().getText().toString().trim());
+    public void confirmInput(View view) {
 
-                if (user != null) {
-                    user.setName(name);
-                    user.setAge(age);
-                    App.getInstance().getDataBase().userDAO().update(user);
-
-                } else {
-                    User users = new User();
-                    users.setName(name);
-                    users.setAge(age);
-                    Intent intent = new Intent();
-                    setResult(RESULT_OK, intent);
-                    App.getInstance().getDataBase().userDAO().insert(users);
-                }
-                finish();
-            }
-        });
-
-        if (!validateName() | !validateAge()){
+        if (!validateName() | !validateAge()) {
             return;
         }
         String input = "Name: " + textInputName.getEditText().getText().toString();
         input += "\n";
         input += "Age: " + textInputAge.getEditText().getText().toString();
         input += "\n";
-
         Toast.makeText(this, input, Toast.LENGTH_SHORT).show();
+
+        String name = textInputName.getEditText().getText().toString().trim();
+        int age = Integer.parseInt(textInputAge.getEditText().getText().toString().trim());
+        if (user != null) {
+            user.setName(name);
+            user.setAge(age);
+            App.getInstance().getDataBase().userDAO().update(user);
+
+        } else {
+            User users = new User();
+            users.setName(name);
+            users.setAge(age);
+            Intent intent = new Intent();
+            setResult(RESULT_OK, intent);
+            App.getInstance().getDataBase().userDAO().insert(users);
+
+        }
+        finish();
 
     }
 
